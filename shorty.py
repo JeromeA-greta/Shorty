@@ -77,9 +77,9 @@ def ouiLanceur() : # Si on choisit d'ajouter au lanceur GNOME
     global nom
     nonLanceur()
     pathDesk = user_desktop_dir()+"/"+nom+".desktop"
-    os.system("cp "+pathDesk+" /home/"+user+"/.local/share/applications/")
+    os.system("cp "+pathDesk+" "+os.path.expanduser("~")+"/.local/share/applications/")
     time.sleep(1)
-    os.system("update-desktop-database /home/"+user+"/.local/share/applications")
+    os.system("update-desktop-database "+os.path.expanduser("~")+"/.local/share/applications")
     info = Toplevel(root)
     info.title("Information")
     # info.geometry("150x80")
@@ -95,6 +95,11 @@ def nonLanceur() :
     global chxLaunch
     chxLaunch.destroy()
 
+home = os.path.expanduser("~")
+# Vérif : ~/.local/share/applicatons existe ? Si non, création
+if not os.path.isdir(home+"/.local/share/applications") :
+    print("Dossier '~/.local/share/applications' non trouvé ou non présent, création")
+    os.mkdir(home+"/.local/share/applications")
 
 # Création et aménagement de la fenêtre principale
 
@@ -115,7 +120,7 @@ user = os.getlogin()
 # root.geometry("300x350")
 root.resizable(False, False)
 
-lblVersion = Label(root, text = "0.2.1") # Numéro de version
+lblVersion = Label(root, text = "0.2.2") # Numéro de version
 lblVersion.grid(column = 0, row = 0)
 
 # Type
