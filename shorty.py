@@ -20,7 +20,6 @@ cmdGen = ""
 version = "0.3.0"
 
 def selFichier() : # Sélection du fichier
-    chemin = ""
     if os.name == "posix" : # Linux
         nomFichier = fd.askopenfilename(initialdir = home+"/bin",
                                         title = 'Fichier...',
